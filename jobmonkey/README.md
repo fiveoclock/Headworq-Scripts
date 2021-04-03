@@ -1,5 +1,5 @@
 # JobMonkey
-Just a small script for running jobs and sending reports.
+Just a small script for running regular jobs and sending reports.
 
 The configuration is stored in a yaml file. Jobs consist of one mor more tasks. Where each task is a command to be executed. 
 
