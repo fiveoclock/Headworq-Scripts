@@ -1,0 +1,60 @@
+global:
+  user: root
+  notifications:
+    telegram:
+      bot_token: 'XXXXXXXXXX:XXX_XXXXXXXXXX_XXXXXXXXXXXXXXXXXXXX'
+      chat_id: '0000000000'
+
+
+jobs:
+  - name: test
+    enabled: false
+    reports:
+      - type: telegram
+        when: on-failue
+    tasks:
+      - run: "hostname -f"
+        report: true
+      - run: "false"
+        report: false
+
+
+  - name: upgrade-check
+    descr: "Check for security updates" 
+    enabled: true
+    reports:
+      - type: telegram
+        when: always
+    tasks:
+      - run: "apt update"
+      - run: "/usr/local/sbin/print_updates.py"
+        report: true
+
+
+  - name: backup-dump-database
+    descr: "Dump databases" 
+    enabled: true
+    reports:
+      - type: telegram
+        when: on-failure
+    tasks:
+      - run: "find /backup/db-dump/ -maxdepth 1 -type f -delete"
+      - run: "mydumper --host localhost -u USERNAME -p PASSWORD --outputdir /backup/db-dump/ --compress"
+
+
+  - name: backup-local-disk
+    descr: "Local disk backup"
+    enabled: true
+    reports:
+      - type: telegram
+        when: always
+    tasks:
+      - run: "crestic etc@local backup"
+      - run: "crestic db-dump@local backup"
+      - run: "crestic data@local backup"
+      # forget and prune old backups
+      - run: "crestic local forget"
+      - run: "crestic local snapshots --last --compact"
+        report: true
+
+
