@@ -3,5 +3,5 @@ This and that..
 
 Contains:
 
-* JobMonkey - A small script for running regular jobs and sending reports.
+* JobMonkey - A small script for running recurring jobs and sending reports.
 

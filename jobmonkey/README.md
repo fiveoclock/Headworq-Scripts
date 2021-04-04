@@ -1,18 +1,18 @@
 # JobMonkey
-Just a small script for running regular jobs and sending reports.
+Just a small script for running recurring jobs and sending reports.
 
 The configuration is stored in a yaml file. Jobs consist of one mor more tasks. Where each task is a command to be executed. 
 
 Features:
 
-* Configuration is stored in a yaml file.
-* Jobs can be disabled
+* Configuration is stored in a YAML file.
+* Jobs can be enabled or disabled
 * Job based reporting can be enabled 'always' or 'on-failure'
 * Reporting can be enabled for single tasks
 * Reports are sent via Telegram
 
 
-The script can send reports which can be defined on a task or job level. 
+Usage:
 
     # jobmonkey -h
     usage: jobmonkey [-h] {list,run} ...
